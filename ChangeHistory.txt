@@ -1,0 +1,48 @@
+ZBD Change History
+==================
+
+v1.4 - 29-May-2018
+------------------
+
+1.	Changed C8 from 100nF to 3.3uF tantalum to improve reliability of reset.
+
+
+v1.3 - 16-May-2018
+------------------
+
+1.	IC11 should use 74LS08 and not 74HCT08 to avoid race condition of data pull up to 0xFF when alter switch is released before the end of /WR pulse to ram. This causes intermittent write of 0xFF to ram instead of desired data. Changing IC8 from 74LS132 to 74LS00 also improves timing but 74LS132 is preferred for reset circuit.
+
+2.	Disconnect IC5-8 from /DRD, connect IC5-8 to /ZRD. This then relies on the RAM chip output buffer being disabled when /WR is activated while /RD is still active. This is required to avoid making /RD active during interupt acknowledge.
+
+
+v1.2 - 11-May-2018
+------------------
+
+1.	Disconnect IC8D-13 from IC9A-13, connect IC8D-13 to IC9A-4.
+
+2.	In next pcb revision disconnect GND from IC9A-14 and IC9B-6, this would allow use of 74LS221 at IC9 to disable auto step/skip. Note 74LS123 will auto retrigger at end of CLR if /STEP input is still active, 74LS221 will not retrigger at end of CLR. (Fairchild 74LS123 might be exception.)
+
+3.	Added C12, 10uF, from IC9B-6 to IC9B-7. Value selected to set auto step/skip rate at approx 370mS delay. If 74LS221 is used the polarity of C12 needs to be reversed.
+
+4.	R50 changed from 10K to 100K, Value selected to set auto step/skip rate at approx 370mS delay.
+
+5.	Disconnect S4-2 common from /ALED and connect S4-2 to GND.
+
+6.	C7 changed from 47nF to DNP, not required due to IC9B delay of 370ms.
+
+7.	R21 changed from 100 ohm to 0 ohm, not required with C7 DNP.
+
+
+
+v1.1 - 9-May-2018
+-----------------
+
+1.	Added component values
+
+
+V1.0 - 4-May-2018
+-----------------
+
+1.	Released gerber files to Easy EDA, JLCPCB.
+
+
